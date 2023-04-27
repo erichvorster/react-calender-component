@@ -2,6 +2,21 @@ import React, { useState } from "react";
 
 const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
+const dates = [
+  new Date(2023, 3, 3).toDateString(),
+  new Date(2023, 3, 10).toDateString(),
+  new Date(2023, 3, 17).toDateString(),
+  new Date(2023, 4, 24).toDateString(),
+  new Date(2023, 5, 17).toDateString(),
+  new Date(2023, 7, 24).toDateString(),
+  new Date(2023, 8, 17).toDateString(),
+  new Date(2023, 9, 24).toDateString(),
+  new Date(2023, 12, 17).toDateString(),
+  new Date(2023, 4, 24).toDateString(),
+];
+
+console.log(dates);
+
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const year = currentDate.getFullYear();
@@ -19,7 +34,15 @@ const Calendar = () => {
   }
 
   for (let i = 1; i <= daysInMonth; i++) {
-    cells.push(<td key={`day-${i}`}>{i}</td>);
+    let backgroundColor = "";
+    if (dates.includes(new Date(year, month, i).toDateString())) {
+      backgroundColor = "red";
+    }
+    cells.push(
+      <td key={`day-${i}`} style={{ backgroundColor }}>
+        {i}
+      </td>
+    );
     if ((i + firstDayOfMonth) % 7 === 0 || i === daysInMonth) {
       rows.push(<tr key={`row-${i / 7}`}>{cells}</tr>);
       cells = [];
